@@ -2,7 +2,7 @@
 <html>
 <head>
   <title>Page Title</title>
-  <link rel="stylesheet" href="Map.css">
+  <link rel="stylesheet" href="./CSS/Map.css">
 
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -25,15 +25,14 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.2/leaflet.draw.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.2/leaflet.draw.js"></script>
 
-  <link rel="stylesheet" href="./CSS/stylesheet.css" />
+
   <!-- Add icon library -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
   <script src="./JS/Ajax.js"></script>
-
-
-
-
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
+  <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
+<base href="https://nominatim.openstreetmap.org/">
 
 
 </head>
@@ -41,6 +40,7 @@
 
 
 <body style = "background-color:white;">
+
 <img id ="img1" />
 <div class="header">
   <a href="https://www.uni-muenster.de/de/">
@@ -191,12 +191,21 @@
 
 //sets the marker for the institut for geoinformatiks and configures the popup
     var markerA = L.marker([51.969371, 7.595696]).addTo(map);
-    markerA.bindPopup("Institut für Geoinformatik <br> Heisenbergstraße 32 <br> 48149 Münster <br> <image src='https://www.uni-muenster.de/imperia/md/images/geoinformatics/sliderimage_de_1492x746.png' width='150px'></image>").openPopup();
+    markerA.bindPopup("Institut für Geoinformatik <br> Heisenbergstraße 2 <br> 48149 Münster <br> <image src='https://www.uni-muenster.de/imperia/md/images/geoinformatics/sliderimage_de_1492x746.png' width='150px'></image>").openPopup();
     map.on('locationfound', onLocationFound);
 
 
+    L.Routing.control({
+      waypoints: [
+        L.latLng(51.74, 7.94),
+        L.latLng(51.6792, 7.949)
+      ],
+    // routeWhileDragging: true,
+      //geocoder: L.Control.Geocoder.nominatim.js()
+    }).addTo(map);
 
     </script>
+
 
   <!--  <script src="./JS/Ajax.js"></script> -->
 
