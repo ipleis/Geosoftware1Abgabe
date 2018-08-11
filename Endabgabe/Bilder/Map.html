@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Page Title</title>
+  <link rel="stylesheet" href="Map.css">
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <!-- jQuery library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!-- Latest compiled JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css"
+        integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
+        crossorigin="" />
+  <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"
+          integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw=="
+          crossorigin=""></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.2/leaflet.draw.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.2/leaflet.draw.js"></script>
+
+  <link rel="stylesheet" href="./CSS/stylesheet.css" />
+  <!-- Add icon library -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <script src="./JS/Ajax.js"></script>
+
+
+
+
+
+
+</head>
+
+
+
+<body style = "background-color:white;">
+<img id ="img1" />
+<div class="header">
+  <a href="https://www.uni-muenster.de/de/">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/7/7f/Logo_WWU_M%C3%BCnster.svg" width="150" height="62" align="left">
+  </a>
+  <a href="https://www.uni-muenster.de/Geoinformatics/">
+    <img src="https://www.uni-muenster.de/imperia/md/images/geoinformatics/_v/logo-ifgi-text-de.png" width="150" height="62" align="right">
+  </a>
+</div>
+<div class="header">
+  <h1>WWU-Finder</h1>
+</div>
+
+<div class="topnav">
+  <a href="neuerSpeicherort.html">Home</a>
+  <a href="Map.html">Map</a>
+  <a href="Impressum.html">Impressum</a>
+</div>
+
+<div class="row">
+  <div class="column">
+    <h2>Map</h2>
+  </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-8 leftSpace resize">
+        <div><button class="button3" type="button" onclick="getPosition()">Wo bin ich?<br><i class="fa fa-map-marker" style="font-size:20px" color="white"></i> </button></div> <br />
+        <div class="border" id="mapid" style="height:500px; width:auto"></div>
+    </div>
+
+    <div class="col-sm-4" style="padding-top:65px">
+        <textarea class="form-control" rows="8" id="urlToGeoJSON" placeholder="Paste your GeoJSON or link to GeoJSON here"></textarea> <br />
+        <button class="button1" type="button" onclick="loadDoc()">Zeig mir GeoJSON <br /> auf der Karte</button>
+        <button class="button2" type="button" onclick="getGeoJSON()"><i class="fa fa-download"></i> Zeichnung downloaden <br /> (als GeoJSON)</button> <br /> <br />
+        <div class="form-group">
+
+              <!--button and text field for uploading a geojson file-->
+              <p>Paste the appropriate URL in the field!</p>
+
+              <label for="url">URL:</label>
+
+              <input class="form-control" id="input" type="url"><br>
+
+              <div id="demo">
+                  <button type="button" class="btn btn-primary" onclick="loadDoc()">Upload!</button>
+              </div>
+              <div>
+
+                <br>
+
+                <!--button and textfield for downloading a drawn vector layer encoded in geojson-->
+                <p>GeoJSON download</p>
+
+                <label for="title">File name:</label>
+
+                <input class="form-control" id="geojsonName" type="text" value="insert file name"><br>
+
+                <div>
+
+                  <button type="button" class="btn btn-primary" onclick="SaveGeoJSON()">Download!</button>
+
+                </div>
+
+              </div>
+          </div>
+    </div>
+</div>
+
+
+
+<!-- function for the map itself-->
+<script>
+
+    var osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+        osmAttrib = '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        osm = L.tileLayer(osmUrl, { maxZoom: 18, attribution: osmAttrib }),
+        map = new L.Map('mapid', { center: new L.LatLng(51.961, 7.618), zoom: 13 }),
+        drawnItems = L.featureGroup().addTo(map);
+    L.control.layers({
+        'osm': osm.addTo(map),
+        "google": L.tileLayer('http://www.google.cn/maps/vt?lyrs=s@189&gl=cn&x={x}&y={y}&z={z}', {
+            attribution: 'google'
+        })
+    }, { 'drawlayer': drawnItems }, { position: 'topleft', collapsed: false }).addTo(map);
+    map.addControl(new L.Control.Draw({
+        edit: {
+            featureGroup: drawnItems,
+            poly: {
+                allowIntersection: false
+            }
+        },
+        draw: {
+            polygon: {
+                allowIntersection: false,
+                showArea: true
+            }
+        }
+    }));
+
+
+//function for geoJson and drawing in the map
+    var geoJsonLayers = {
+        "type": "FeatureCollection",
+        "features": []
+    };
+
+    map.on(L.Draw.Event.CREATED, function (event) {
+        var layer = event.layer;
+
+        geoJsonLayers.features.push(layer.toGeoJSON());
+        drawnItems.addLayer(layer);
+    });
+
+    function getPosition() {
+        map.locate({ setView: true, maxZoom: 16 });
+    }
+
+    function onLocationFound(e) {
+        var radius = e.accuracy / 2;
+
+        L.marker(e.latlng).addTo(map)
+            .bindPopup("You are within " + radius + " meters from this point").openPopup();
+
+        L.circle(e.latlng, radius).addTo(map);
+    }
+
+
+    function getGeoJSON() {
+        var element = document.createElement('a');
+        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent("" + JSON.stringify(geoJsonLayers)));
+        element.setAttribute('download', 'featuresGeoJSON.JSON');
+
+        element.style.display = 'none';
+        document.body.appendChild(element);
+
+        element.click();
+
+        document.body.removeChild(element);
+    }
+//source: http://www.liedman.net/leaflet-routing-machine/
+//  L.Routing.control({
+  //    waypoints: [
+    //L.latLng(51.963, 7.613),
+    //L.latLng(51.969, 7.595)
+    //]
+  //  }).addTo(map);
+
+//sets the marker for the institut for geoinformatiks and configures the popup
+    var markerA = L.marker([51.969371, 7.595696]).addTo(map);
+    markerA.bindPopup("Institut für Geoinformatik <br> Heisenbergstraße 2 <br> 48149 Münster <br> <image src='https://www.uni-muenster.de/imperia/md/images/geoinformatics/sliderimage_de_1492x746.png' width='150px'></image>").openPopup();
+    map.on('locationfound', onLocationFound);
+
+
+
+    </script>
+
+  <!--  <script src="./JS/Ajax.js"></script> -->
+
+    <!--Link to splitter.js Scriptfile
+    <script src="splitter.js"></script>-->
+
+    <footer>
+
+      <div class="footer-copyright text-center py-3">© 2018 Copyright: WWU Münster, Ilka Pleiser</div>
+
+    </footer>
+
+</body>
+</html>
