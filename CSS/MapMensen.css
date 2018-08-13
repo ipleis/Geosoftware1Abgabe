@@ -3,16 +3,19 @@
     text-align: center;
     padding: 20px;
 }
+
+
+
 .topnav {
     overflow: hidden;
-    background-color: black;
+    background-color: #333;
     font-family: arial;
     font-size: 16px;
 }
 .topnav a {
     float: left;
     display: block;
-    color: white;
+    color: #f2f2f2;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
@@ -30,6 +33,7 @@ h1 {
     font-family: arial narrow;
     text-align: center;
 }
+
 h2 {
     color: black;
     font-size: 40px;
@@ -37,35 +41,28 @@ h2 {
     text-align: left;
 }
 
+
+
 p {
     font-family: arial;
-    font-size: 18px;
-    text-align: left;
+    font-size: 20px;
+    text-align: center;
 }
-table {
-    font-family: arial;
-    font-size: 18px;
-    border-collapse: collapse;
-    width: 100%;
-    background-color: white;
-}
-
-td, th {
-
-    text-align: left;
-    padding: 15px;
-}
-
-tr:nth-child(even) {
-    background-color: #dddddd;
-}
-
 
 /* Create three unequal columns that floats next to each other */
 .column {
     float: center;
     padding: 30px;
-    background-color: white;
+}
+
+/* Left and right column */
+.column.side {
+    width: 25%;
+}
+
+/* Middle column */
+.column.middle {
+    width: 50%;
 }
 
 /* Clear floats after the columns */
@@ -73,48 +70,56 @@ tr:nth-child(even) {
     content: "";
     display: table;
     clear: both;
-    background-color: white;
 }
-.footer {
-    background-color: white;
-    text-align: center;
-    padding: 10px;
 
-}
-.p-footer{
-    font-size: 14px;
-}
-.dropbtn {
-
-    padding: 16px;
-    font-size: 16px;
-    border: none;
-    cursor: pointer;
-    background-color: black;
+.button1 {
+    background-color: #008CBA;
     color: white;
+    border: 2px solid #008CBA;
+    border-radius: 8px;
+    padding: 12px 28px;
 }
 
-.dropdown {
-    display: inline-block;
-}
+    .button1:hover {
+        background-color: #4da6ff;
+        border: 2px solid #4da6ff;
+    }
 
-.dropdown-content {
-    display: none;
-    position: absolute;
-    min-width: 160px;
-    background-color: black;
-}
-
-.dropdown-content a {
+.button2 {
+    background-color: #2eb82e;
     color: white;
-    padding: 12px 16px;
-    display: block;
+    border: 2px solid #2eb82e;
+    border-radius: 8px;
+    padding: 12px 28px;
 }
 
-.dropdown:hover .dropdown-content {
-    display: block;
+    .button2:hover {
+        background-color: #5cd65c;
+        border: 2px solid #5cd65c;
+    }
+
+.button3 {
+    background-color: #e64d00;
+    color: white;
+    border: 2px solid #e64d00;
+    border-radius: 8px;
+    padding: 10px 20px;
 }
 
+.button3:hover {
+        background-color: #ff884d;
+        border: 2px solid #ff884d;
+    }
+
+.leftSpace {
+        padding-left: 50px;
+    }
+
+.border {
+        border: 2px solid #cccccc;
+        border-radius: 8px;
+
+    }
 
 /* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
 @media screen and (max-width:600px) {

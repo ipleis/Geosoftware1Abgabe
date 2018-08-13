@@ -2,7 +2,7 @@
 <html>
 <head>
   <title>Page Title</title>
-  <link rel="stylesheet" href="./CSS/Map.css">
+  <link rel="stylesheet" href="./CSS/MapMensen.css">
 
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,6 +12,7 @@
         href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <!-- jQuery library -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
   <!-- Latest compiled JavaScript -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
@@ -33,7 +34,6 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
   <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
 
-<link rel"stylesheet" href="./JS/nominatim.js">
 </head>
 
 
@@ -53,6 +53,8 @@
   <h1>WWU-Finder</h1>
 </div>
 
+
+
 <div class="topnav">
   <div class="dropdown">
     <button class="dropbtn">Karten</button>
@@ -60,15 +62,16 @@
       <a href="Map.html">Zeichenkarte</a>
       <a href="MapMensen.html">Mensenkarte</a>
     </div>
-  </div>
-
+    </div>
   <a href="neuerSpeicherort.html">Home</a>
   <a href="Impressum.html">Impressum</a>
+
+
 </div>
 
 <div class="row">
   <div class="column">
-    <h2>Map</h2>
+    <h2>Happi Happi</h2>
   </div>
 </div>
 
@@ -78,39 +81,6 @@
         <div class="border" id="mapid" style="height:500px; width:auto"></div>
     </div>
 
-    <div class="col-sm-4" style="padding-top:65px">
-        <textarea class="form-control" rows="8" id="urlToGeoJSON" placeholder="Paste your GeoJSON or link to GeoJSON here"></textarea> <br />
-        <button class="button1" type="button" onclick="loadDoc()">Zeig mir GeoJSON <br /> auf der Karte</button>
-        <button class="button2" type="button" onclick="getGeoJSON()"><i class="fa fa-download"></i> Zeichnung downloaden <br /> (als GeoJSON)</button> <br /> <br />
-        <div class="form-group">
-
-
-              <label for="url">URL:</label>
-
-              <input class="form-control" id="input" type="url"><br>
-
-              <div id="demo">
-                  <button type="button" class="btn btn-primary" onclick="loadDoc()">Upload!</button>
-              </div>
-              <div>
-
-                <br>
-
-
-
-                <label for="title">File name:</label>
-
-                <input class="form-control" id="geojsonName" type="text" value="insert file name"><br>
-
-                <div>
-
-                  <button type="button" class="btn btn-primary" onclick="SaveGeoJSON()">Download!</button>
-
-                </div>
-
-              </div>
-          </div>
-    </div>
 </div>
 
 
@@ -144,70 +114,7 @@
         }
     }));
 
-
-//function for geoJson and drawing in the map
-    var geoJsonLayers = {
-        "type": "FeatureCollection",
-        "features": []
-    };
-
-    map.on(L.Draw.Event.CREATED, function (event) {
-        var layer = event.layer;
-
-        geoJsonLayers.features.push(layer.toGeoJSON());
-        drawnItems.addLayer(layer);
-    });
-
-    function getPosition() {
-        map.locate({ setView: true, maxZoom: 16 });
-    }
-
-    function onLocationFound(e) {
-        var radius = e.accuracy / 2;
-
-        L.marker(e.latlng).addTo(map)
-            .bindPopup("You are within " + radius + " meters from this point").openPopup();
-
-        L.circle(e.latlng, radius).addTo(map);
-    }
-
-
-    function getGeoJSON() {
-        var element = document.createElement('a');
-        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent("" + JSON.stringify(geoJsonLayers)));
-        element.setAttribute('download', 'featuresGeoJSON.JSON');
-
-        element.style.display = 'none';
-        document.body.appendChild(element);
-
-        element.click();
-
-        document.body.removeChild(element);
-    }
-//source: http://www.liedman.net/leaflet-routing-machine/
-//  L.Routing.control({
-  //    waypoints: [
-    //L.latLng(51.963, 7.613),
-    //L.latLng(51.969, 7.595)
-    //]
-  //  }).addTo(map);
-
-//sets the marker for the institut for geoinformatiks and configures the popup
-    var markerA = L.marker([51.969371, 7.595696]).addTo(map);
-    markerA.bindPopup("Institut für Geoinformatik <br> Heisenbergstraße 2 <br> 48149 Münster <br> <image src='https://www.uni-muenster.de/imperia/md/images/geoinformatics/sliderimage_de_1492x746.png' width='150px'></image>").openPopup();
-    map.on('locationfound', onLocationFound);
-
-
-    L.Routing.control({
-      waypoints: [
-        L.latLng(51.74, 7.94),
-        L.latLng(51.6792, 7.949)
-      ],
-      //routeWhileDragging: true,
-      //geocoder: L.Control.Geocoder.nominatim()
-    }).addTo(map);
-
-    </script>
+</script>
 
 
   <!--  <script src="./JS/Ajax.js"></script> -->
