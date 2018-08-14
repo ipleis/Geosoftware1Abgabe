@@ -32,18 +32,20 @@
   <h1>WWU-Finder</h1>
 </div>
 
-<div class="topnav">
+
+<div class="topnav" id="myTopnav">
   <a href="neuerSpeicherort.html">Home</a>
-
-  <div class="dropdown">
-    <button class="dropbtn">Karten</button>
-    <div class="dropdown-content">
-      <a href="Map.html">Zeichenkarte</a>
-      <a href="MapMensen.html">Mensenkarte</a>
-    </div>
-
   <a href="Impressum.html">Impressum</a>
-</div>
+  <div class="dropdown">
+    <button class="dropbtn">Karten
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="Map.html" class="active">Zeichenkarte</a>
+      <a href="MapMensen.html">Mensakarte</a>
+    </div>
+  </div>
+  <a href="javascript:void(0);" class="icon" onclick="myFunction()">&#9776;</a>
 </div>
 
 
@@ -62,7 +64,17 @@
   </div>
 </div>
 
-
+<script>
+//funtion for the dropdown-menue (W3C)
+    function myFunction() {
+        var x = document.getElementById("myTopnav");
+        if (x.className === "topnav") {
+            x.className += " responsive";
+        } else {
+            x.className = "topnav";
+        }
+    }
+</script>
 
 <!-- Changes images after seven seconds.
  src: https://www.daniweb.com/programming/web-development/threads/131227/changing-images-in-html

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Page Title</title>
+  <title>DrawMap</title>
   <link rel="stylesheet" href="./CSS/Map.css">
 
   <meta charset="utf-8">
@@ -53,17 +53,19 @@
   <h1>WWU-Finder</h1>
 </div>
 
-<div class="topnav">
-  <div class="dropdown">
-    <button class="dropbtn">Karten</button>
-    <div class="dropdown-content">
-      <a href="Map.html">Zeichenkarte</a>
-      <a href="MapMensen.html">Mensenkarte</a>
-    </div>
-  </div>
-
+<div class="topnav" id="myTopnav">
   <a href="neuerSpeicherort.html">Home</a>
   <a href="Impressum.html">Impressum</a>
+  <div class="dropdown">
+    <button class="dropbtn">Karten
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="Map.html" class="active">Zeichenkarte</a>
+      <a href="MapMensen.html">Mensakarte</a>
+    </div>
+  </div>
+  <a href="javascript:void(0);" class="icon" onclick="myFunction()">&#9776;</a>
 </div>
 
 <div class="row">
@@ -158,6 +160,7 @@
         drawnItems.addLayer(layer);
     });
 
+    //get position of the user
     function getPosition() {
         map.locate({ setView: true, maxZoom: 16 });
     }
@@ -206,6 +209,15 @@
       //routeWhileDragging: true,
       //geocoder: L.Control.Geocoder.nominatim()
     }).addTo(map);
+//funtion for the dropdown-menue (W3C)
+    function myFunction() {
+        var x = document.getElementById("myTopnav");
+        if (x.className === "topnav") {
+            x.className += " responsive";
+        } else {
+            x.className = "topnav";
+        }
+    }
 
     </script>
 

@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>MensaMap</title>
-  <link rel="stylesheet" href="./CSS/MapMensen.css">
+  <title>InstitutMap</title>
+  <link rel="stylesheet" href="./CSS/MapInstitute.css">
 
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -66,6 +66,7 @@
     <div class="dropdown-content">
       <a href="Map.html">Zeichenkarte</a>
       <a href="MapMensen.html" class="active">Mensakarte</a>
+      <a href="MapInstitute.html" class="active">Institutkarte</a>
     </div>
   </div>
   <a href="javascript:void(0);" class="icon" onclick="myFunction()">&#9776;</a>
@@ -73,7 +74,7 @@
 
 <div class="row">
   <div class="column">
-    <h2>Happi Happi</h2>
+    <h2>Campus-Uni Münster</h2>
   </div>
 </div>
 
@@ -82,8 +83,24 @@
         <div><button class="button3" type="button" onclick="getPosition()">Wo bin ich?<br><i class="fa fa-map-marker" style="font-size:20px" color="white"></i> </button></div> <br />
         <div class="border" id="mapid" style="height:500px; width:auto"></div>
     </div>
+    <form id="form1" action="script.php">
+         <p2>Bitte trage hier die Informationen zum Fachbereich ein:</p2><br><br>
+         Fachbereich: <input name="input1" value=""><br>
+         Abkürzung: <input name="input2" value=""><br>
+         Internetadresse: <input name="input3" value=""><br>
+         zugehörige Instutue: <input name="input4" value=""><br>
+         Adresse: <input name="input5" value=""><br><br>
+
+         <input type="submit" value="Senden">
+    </form>
 
 </div>
+
+
+
+
+
+
 
 
 
@@ -139,10 +156,20 @@
             x.className = "topnav";
         }
     }
-
-
 </script>
 
+<!--function for ajax-->
+<script type="text/javascript" src="./JS/jquery-1.6.4.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function(){
+        $("#form1").submit(function(e){
+          e.preventDefault();
+          $.post("script.php",$("#form1").serialize(),function(msg){
+            alert(msg);
+          });
+        });
+      });
+    </script>
 
   <!--  <script src="./JS/Ajax.js"></script> -->
 
