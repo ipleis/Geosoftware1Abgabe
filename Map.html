@@ -33,7 +33,8 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
   <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
 
-<link rel"stylesheet" href="./JS/nominatim.js">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css"/>
+     <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
 </head>
 
 
@@ -56,16 +57,9 @@
 <div class="topnav" id="myTopnav">
   <a href="neuerSpeicherort.html">Home</a>
   <a href="Impressum.html">Impressum</a>
-  <div class="dropdown">
-    <button class="dropbtn">Karten
-      <i class="fa fa-caret-down"></i>
-    </button>
-    <div class="dropdown-content">
-      <a href="Map.html" class="active">Zeichenkarte</a>
-      <a href="MapMensen.html">Mensakarte</a>
-    </div>
-  </div>
-  <a href="javascript:void(0);" class="icon" onclick="myFunction()">&#9776;</a>
+  <a href="Map.html">Zeichenkarte</a>
+  <a href="MapMensen.html">Mensakarte</a>
+  <a href="MapInstitute.html">Institutkarte</a>
 </div>
 
 <div class="row">
@@ -146,6 +140,55 @@
         }
     }));
 
+    var control = L.Routing.control({
+      router: L.routing.mapbox("pk.eyJ1IjoiaWxrYTIiLCJhIjoiY2prdjcwcXpvMGk4ODNvb2FwZHNmdzhvbyJ9.ZdeTWlHt8rNTnYJIpP15kA"),
+        waypoints: [
+            L.latLng(51.961528, 7.6261347),
+            L.latLng(50.553490, 9.675621)
+        ],
+        routeWhileDragging: true,
+        geocoder: L.Control.Geocoder.nominatim()
+    }).addTo(map);
+
+    function createButton(label, container) {
+        var btn = L.DomUtil.create('button', '', container);
+        btn.setAttribute('type', 'button');
+        btn.innerHTML = label;
+        return btn;
+    }
+    var array = [];
+    map.on('click', function(e) {
+        var container = L.DomUtil.create('div'),
+            startBtn = createButton('Start from this location', container),
+            destBtn = createButton('Go to this location', container);
+
+        L.popup()
+            .setContent(container)
+            .setLatLng(e.latlng)
+            .openOn(map);
+
+            L.DomEvent.on(startBtn, 'click', function() {
+                    control.spliceWaypoints(0, 1, e.latlng);
+                    array.push(e.latlng);
+                    map.closePopup();
+                });
+
+                L.DomEvent.on(destBtn, 'click', function() {
+                   control.spliceWaypoints(control.getWaypoints().length - 1, 1, e.latlng);
+                   array.push(e.latlng);
+                   map.closePopup();
+               });
+               console.log(array);
+    });
+
+    //console.log(control.options.waypoints["0"]);
+    //console.log(control.options.waypoints[1]);
+
+    var start = (control.options.waypoints["0"]);
+    var ende = (control.options.waypoints[1]);
+
+    console.log(start);
+    console.log(ende);
 
 //function for geoJson and drawing in the map
     var geoJsonLayers = {
@@ -201,14 +244,7 @@
     map.on('locationfound', onLocationFound);
 
 
-    L.Routing.control({
-      waypoints: [
-        L.latLng(51.74, 7.94),
-        L.latLng(51.6792, 7.949)
-      ],
-      //routeWhileDragging: true,
-      //geocoder: L.Control.Geocoder.nominatim()
-    }).addTo(map);
+
 //funtion for the dropdown-menue (W3C)
     function myFunction() {
         var x = document.getElementById("myTopnav");
