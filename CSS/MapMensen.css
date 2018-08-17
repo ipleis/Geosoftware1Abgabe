@@ -83,6 +83,10 @@
     display: block;
 }
 
+btn2.hide-me{
+    display: none;
+    visibility: hidden;
+}
 /* When the screen is less than 600 pixels wide, hide all links, except for the first one ("Home"). Show the link that contains should open and close the topnav (.icon) */
 @media screen and (max-width: 600px) {
   .topnav a:not(:first-child), .dropdown .dropbtn {
@@ -135,7 +139,6 @@ h2 {
 p {
     font-family: arial;
     font-size: 20px;
-    text-align: center;
 }
 
 /* Create three unequal columns that floats next to each other */
