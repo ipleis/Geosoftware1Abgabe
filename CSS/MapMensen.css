@@ -138,24 +138,17 @@ h2 {
 
 p {
     font-family: arial;
-    font-size: 20px;
+    font-size: 12px;
 }
 
 /* Create three unequal columns that floats next to each other */
 .column {
-    float: center;
+    float: left;
     padding: 30px;
+    width: 50%
 }
 
-/* Left and right column */
-.column.side {
-    width: 25%;
-}
 
-/* Middle column */
-.column.middle {
-    width: 50%;
-}
 
 /* Clear floats after the columns */
 .row:after {
@@ -163,7 +156,6 @@ p {
     display: table;
     clear: both;
 }
-
 
 
 

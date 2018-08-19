@@ -71,26 +71,27 @@
 </div>
 
 <div class="row">
-    <div class="col-sm-8 leftSpace resize">
-        <div><button class="button3" type="button" onclick="getPosition()">Wo bin ich?<br><i class="fa fa-map-marker" style="font-size:20px" color="white"></i> </button></div> <br />
-        <div class="border" id="mapid" style="height:500px; width:auto"></div>
-    </div>
-    <div class="col-sm-8 rightSpace resize">
-      <div><button class="button3" type="button" id="btn">Mensa am Aasee<br></button></div> <br />
-    </div>
-    <div class="col-sm-8 rightSpace resize">
-      <div><button class="button3" type="button" id="btn1">Mensa am Ring<br></button></div> <br />
-    </div>
-    <div class="col-sm-8 rightSpace resize">
-      <div><button class="button3" type="button" id="btn2">Mensa Da Vinci<br></button></div> <br />
-    </div>
-    <div class="col-sm-8 rightSpace resize">
-      <div><button class="button3" type="button" id="btn3">Mensa Bispinghof<br></button></div> <br />
-    </div>
+  <div class="column">
+      <div><button class="button3" type="button" onclick="getPosition()">Wo bin ich?<br><i class="fa fa-map-marker" style="font-size:20px" color="white"></i> </button></div> <br />
+      <div class="border" id="mapid" style="height:500px; width:auto"></div>
+  </div>
+  <div class="column">
+      <div><button class="button3" type="button" id="btn">Mensa am Aasee<br></button></div>
+      <div id="mensa-info"></div>
+  </div>
+  <div class="column">
+        <div><button class="button3" type="button" id="btn1">Mensa am Ring<br></button></div>
+        <div id="mensa-info"></div>
+  </div>
+  <div class= "column">
+    <div><button class="button3" type="button" id="btn2">Mensa Da Vinci<br></button></div>
     <div id="mensa-info"></div>
-    <p id="demo"></p>
+  </div>
+  <div class="column">
+    <div><button class="button3" type="button" id="btn3">Mensa Bispinghof<br></button></div>
+    <div id="mensa-info"></div>
+  </div>
 </div>
-
 
 
 <!-- function for the map itself-->
